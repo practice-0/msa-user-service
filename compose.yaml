@@ -1,6 +1,0 @@
-services:
-  user-service:
-    container_name: user-service
-    image: user-service
-    ports:
-    - 8080:8080
