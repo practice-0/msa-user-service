@@ -1,5 +1,9 @@
 name: user-service deploy
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
     branches:
@@ -54,4 +58,3 @@ jobs:
             {
               "service": "user-service"
             }
-              
