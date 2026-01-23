@@ -45,6 +45,7 @@ jobs:
           docker push ghcr.io/${{ github.repository_owner }}/msa-user-service:latest
 
       - name: dispatch repo
-        run: gh api /repos/yunjeongwon/msa-infra/dispatches -f event_type='deploy'
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: |
+          gh api /repos/yunjeongwon/msa-infra/dispatches \
+            -f event_type='deploy' \
+            -f client_payload[service]='user-service'
