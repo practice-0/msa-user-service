@@ -35,7 +35,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push Docker image
         run: |
@@ -44,18 +44,18 @@ jobs:
           docker push ghcr.io/${{ github.repository_owner }}/msa-user-service:$GITHUB_SHA
           docker push ghcr.io/${{ github.repository_owner }}/msa-user-service:latest
 
-      - name: Hard debug dispatch
-        run: |
-          curl -i -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.PAT }}" \
-            https://api.github.com/repos/yunjeongwon/msa-infra/dispatches \
-            -d '{"event_type":"deploy"}'
+      - name: Generate GitHub App token
+        id: app-token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          installation_id: ${{ secrets.APP_INSTALLATION_ID }}
 
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v4
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ steps.app-token.outputs.token }}
           repository: yunjeongwon/msa-infra
           event-type: deploy
           client-payload: |
