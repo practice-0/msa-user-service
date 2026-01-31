@@ -19,4 +19,4 @@ spring:
 
 client:
   point-service:
-    url: http://point-service:8080
+    url: http://point-service:8082
