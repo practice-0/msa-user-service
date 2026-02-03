@@ -11,8 +11,3 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-server:9092
       JWT_SECRET: ${JWT_SECRET}
       POINT_SERVICE_URL: http://point-service:8080
-
-networks:
-  default:
-    external: true
-    name: msa-net
