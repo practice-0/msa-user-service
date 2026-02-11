@@ -41,7 +41,7 @@ jobs:
           s3://bs-bucket-a/user-service/deploy/ \
           --recursive
 
-          - name: ssm command
+      - name: ssm command
         env:
           SERVICE_NAME: user-service
           DEPLOY_DIR: /home/ubuntu/user-service
